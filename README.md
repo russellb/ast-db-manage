@@ -9,13 +9,14 @@ This is implemented as a set of repositories that contain database schema
 migrations, using [Alembic](http://alembic.readthedocs.org).  The existing
 repositories include:
 
- * `config` - Tables used for Asterisk realtime configuration.  IMPORTANT NOTE:
-   This is still under development.  The initial tables are all being created
-   in a single migration and it's not done yet.  Do not use this tool for any
-   production purpose yet.
+ * `config` - Tables used for Asterisk realtime configuration
+ * `voicemail` - Tables used for `ODBC_STOARGE` of voicemail messages
 
 Alembic uses SQLAlchemy, which has support for
 [many databases](http://docs.sqlalchemy.org/en/rel_0_8/dialects/index.html).
+
+IMPORTANT NOTE: This is brand new and the initial migrations are still subject
+to change.  Only use this for testing purposes for now.
 
 Example Usage
 -------------
