@@ -2,7 +2,7 @@ Asterisk Database Manager
 =========================
 
 Asterisk includes optional database integration for a variety of features.
-The purpose of this utility is to assist in managing the database schema
+The purpose of this effort is to assist in managing the database schema
 for Asterisk database integration.
 
 This is implemented as a set of repositories that contain database schema
@@ -32,7 +32,7 @@ Next, bring the database up to date with the current schema.
 
     $ alembic -c config.ini upgrade head
 
-In the future, as additional database migrations are headed, you can run
+In the future, as additional database migrations are added, you can run
 alembic again to migrate the existing tables to the latest schema.
 
     $ alembic -c config.ini upgrade head
