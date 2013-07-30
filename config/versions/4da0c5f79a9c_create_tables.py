@@ -46,6 +46,8 @@ IAX_REQUIRECALLTOKEN_VALUES = ['yes', 'no', 'auto']
 IAX_ENCRYPTION_VALUES = ['yes', 'no', 'aes128']
 IAX_TRANSFER_VALUES = ['yes', 'no', 'mediaonly']
 
+MOH_MODE_VALUES = ['custom', 'files', 'mp3nb', 'quietmp3nb', 'quietmp3']
+
 
 def upgrade():
     op.create_table(
@@ -265,9 +267,22 @@ def upgrade():
     op.create_index('meetme_confno_starttime_endtime', 'meetme',
                     ['confno', 'starttime', 'endtime'])
 
+    op.create_table(
+        'musiconhold',
+        sa.Column('name', sa.String(80), primary_key=True, nullable=False),
+        sa.Column('mode', sa.Enum(*MOH_MODE_VALUES)),
+        sa.Column('directory', sa.String(255)),
+        sa.Column('application', sa.String(255)),
+        sa.Column('digit', sa.String(1)),
+        sa.Column('sort', sa.String(10)),
+        sa.Column('format', sa.String(10)),
+        sa.Column('stamp', sa.DateTime())
+    )
+
 
 def downgrade():
     op.drop_table('sippeers')
     op.drop_table('iaxfriends')
     op.drop_table('voicemail')
     op.drop_table('meetme')
+    op.drop_table('musiconhold')
