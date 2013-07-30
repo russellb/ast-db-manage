@@ -246,8 +246,28 @@ def upgrade():
     op.create_index('voicemail_mailbox_context', 'voicemail', ['mailbox', 'context'])
     op.create_index('voicemail_imapuser', 'voicemail', ['imapuser'])
 
+    op.create_table(
+        'meetme',
+        sa.Column('bookid', sa.Integer, primary_key=True, nullable=False,
+                  autoincrement=True),
+        sa.Column('confno', sa.String(80), nullable=False),
+        sa.Column('starttime', sa.DateTime()),
+        sa.Column('endtime', sa.DateTime()),
+        sa.Column('pin', sa.String(20)),
+        sa.Column('adminpin', sa.String(20)),
+        sa.Column('opts', sa.String(20)),
+        sa.Column('adminopts', sa.String(20)),
+        sa.Column('recordingfilename', sa.String(80)),
+        sa.Column('recordingformat', sa.String(10)),
+        sa.Column('maxusers', sa.Integer),
+        sa.Column('members', sa.Integer, nullable=False, default=0)
+    )
+    op.create_index('meetme_confno_starttime_endtime', 'meetme',
+                    ['confno', 'starttime', 'endtime'])
+
 
 def downgrade():
     op.drop_table('sippeers')
     op.drop_table('iaxfriends')
     op.drop_table('voicemail')
+    op.drop_table('meetme')
